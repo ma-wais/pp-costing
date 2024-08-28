@@ -15,7 +15,14 @@ const PPCoastingCalculator = () => {
   const D16 = 1;
   const E15 = 780;
   const E16 = 3000;
+  const E17 = 970;
   const E18 = 3.2;
+  const E21 = 180;
+  const H21 = 155;
+  const E22 = 230;
+  const E23 = 205;
+  const E24 = 215;
+
   const F16 =
     Math.round(
       inputs.readySizeX *
@@ -30,16 +37,18 @@ const PPCoastingCalculator = () => {
   const H14 = E14 + 25 + (E14 + 25) * A12;
   const H15 = E15 + 5 + (E15 + 5) * A12;
   const H16 = (F16 / 1000) * E16 * D16;
-  console.log('H16', H16);
+  console.log("H16", H16);
   const F18 = (E18 / inputs.ups) * inputs.sides;
-  console.log('F18', F18);
-  const E19 = 1.872;
-  console.log('E19', E19);
+  console.log("F18", F18);
+  const F19 = inputs.readySizeX * 0.057;
+  console.log("F19", F19);
+  const E19 = (F19 / 1000) * E17 + 0.5;
+  console.log("E19", E19);
 
   const calculateResults = () => {
-    const calculateJ = (weight, index) => {
+    const calculateJ = (weight,index) => {
       return index === 0 || index === 1 || index === 2 || index === 5
-        ? (weight / 1000) * F14 + H16 + F18 + E19
+        ? (weight / 1000) * F14 + (H16 + F18 + E19)
         : index === 3 || index === 4
         ? (weight / 1000) * H14 + H16 + F18 + E19
         : (weight / 1000) * H15 + H16 + F18 + E19;
@@ -60,13 +69,24 @@ const PPCoastingCalculator = () => {
     ];
 
     const newResults = specifications.map((item, index) => {
-      const j = calculateJ(item.weight, index);
+      let weight =
+        index === 0 || index === 3
+          ? (E21 / 1550) * inputs.readySizeX * (inputs.readySizeY + 1.5)
+          : index === 1
+          ? (H21 / 1550) * inputs.readySizeX * (inputs.readySizeY + 1.5)
+          : index === 2 || index === 4
+          ? (E22 / 1550) * inputs.readySizeX * (inputs.readySizeY + 1.5)
+          : index === 5
+          ? (E23 / 1550) * inputs.readySizeX * (inputs.readySizeY + 1.5)
+          : (E24 / 1550) * inputs.readySizeX * (inputs.readySizeY + 1.5);
+      console.log("weight", weight);
+      const j = calculateJ(weight, index);
       const i = calculateI(j);
 
       return {
         specifications: item.spec,
         rate: item.rate,
-        weight: item.weight,
+        weight: weight,
         i: i.toFixed(1),
         j: index === 2 || index === 4 || index === 5 ? j + 2 : j,
       };
@@ -143,8 +163,10 @@ const PPCoastingCalculator = () => {
             results.table.map((row, index) => (
               <tr key={index}>
                 <td>{row.specifications}</td>
-                <td>{Math.ceil((Number(row.i) + Number(row.j)) / 0.5) * 0.5}</td>
-                <td>{row.weight}</td>
+                <td>
+                  {Math.ceil((Number(row.i) + Number(row.j)) / 0.5) * 0.5}
+                </td>
+                <td>{Number(row.weight).toFixed(0)}</td>
                 <td>{Number(row.i).toFixed(2)}</td>
                 <td>{Number(row.j).toFixed(2)}</td>
               </tr>
