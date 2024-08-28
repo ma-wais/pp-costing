@@ -50,13 +50,13 @@ const PPCoastingCalculator = () => {
     };
 
     const specifications = [
-      { spec: "18,20,22,23,25,27", rate: 105.5, weight: 108 },
-      { spec: "18 Low Gram", rate: 94.5, weight: 93 },
-      { spec: "18 H", rate: 129.0, weight: 138 },
-      { spec: "13,15 N", rate: 107.5, weight: 108 },
-      { spec: "15 H", rate: 132.0, weight: 138 },
-      { spec: "23 H", rate: 118.0, weight: 123 },
-      { spec: "PP Craft", rate: 192.0, weight: 189 },
+      { spec: "18,20,22,23,25,27", weight: 108 },
+      { spec: "18 Low Gram", weight: 93 },
+      { spec: "18 H", weight: 138 },
+      { spec: "13,15 N", weight: 108 },
+      { spec: "15 H", weight: 138 },
+      { spec: "23 H", weight: 123 },
+      { spec: "PP Craft", weight: 189 },
     ];
 
     const newResults = specifications.map((item, index) => {
@@ -143,7 +143,7 @@ const PPCoastingCalculator = () => {
             results.table.map((row, index) => (
               <tr key={index}>
                 <td>{row.specifications}</td>
-                <td>{row.rate.toFixed(1)}</td>
+                <td>{Math.ceil((Number(row.i) + Number(row.j)) / 0.5) * 0.5}</td>
                 <td>{row.weight}</td>
                 <td>{Number(row.i).toFixed(2)}</td>
                 <td>{Number(row.j).toFixed(2)}</td>
