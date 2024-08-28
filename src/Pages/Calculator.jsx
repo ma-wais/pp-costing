@@ -21,7 +21,7 @@ const PPCoastingCalculator = () => {
   const H21 = 155;
   const E22 = 230;
   const E23 = 205;
-  const E24 = 215;
+  const E24 = 315;
 
   const F16 =
     Math.round(
@@ -46,7 +46,7 @@ const PPCoastingCalculator = () => {
   console.log("E19", E19);
 
   const calculateResults = () => {
-    const calculateJ = (weight,index) => {
+    const calculateJ = (weight, index) => {
       return index === 0 || index === 1 || index === 2 || index === 5
         ? (weight / 1000) * F14 + (H16 + F18 + E19)
         : index === 3 || index === 4
@@ -59,13 +59,13 @@ const PPCoastingCalculator = () => {
     };
 
     const specifications = [
-      { spec: "18,20,22,23,25,27", weight: 108 },
-      { spec: "18 Low Gram", weight: 93 },
-      { spec: "18 H", weight: 138 },
-      { spec: "13,15 N", weight: 108 },
-      { spec: "15 H", weight: 138 },
-      { spec: "23 H", weight: 123 },
-      { spec: "PP Craft", weight: 189 },
+      { spec: "18,20,22,23,25,27" },
+      { spec: "18 Low Gram" },
+      { spec: "18 H" },
+      { spec: "13,15 N" },
+      { spec: "15 H" },
+      { spec: "23 H" },
+      { spec: "PP Craft" },
     ];
 
     const newResults = specifications.map((item, index) => {
