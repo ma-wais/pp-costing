@@ -17,21 +17,26 @@ const PPCoastingCalculator = () => {
   const E16 = 3000;
   const E18 = 3.2;
   const F16 =
-    inputs.readySizeX *
-    (inputs.readySizeY + 1.5) *
-    inputs.sides *
-    0.0000032 *
-    1000;
+    Math.round(
+      inputs.readySizeX *
+        (inputs.readySizeY + 1.5) *
+        inputs.sides *
+        0.0000032 *
+        1000 *
+        100
+    ) / 100;
+  console.log("F16", F16);
   const F14 = E14 + 5 + (E14 + 5) * A12;
   const H14 = E14 + 25 + (E14 + 25) * A12;
   const H15 = E15 + 5 + (E15 + 5) * A12;
   const H16 = (F16 / 1000) * E16 * D16;
+  console.log('H16', H16);
   const F18 = (E18 / inputs.ups) * inputs.sides;
+  console.log('F18', F18);
   const E19 = 1.872;
+  console.log('E19', E19);
 
   const calculateResults = () => {
-    const { readySizeX, readySizeY, sides, ups } = inputs;
-
     const calculateJ = (weight, index) => {
       return index === 0 || index === 1 || index === 2 || index === 5
         ? (weight / 1000) * F14 + H16 + F18 + E19
@@ -60,38 +65,15 @@ const PPCoastingCalculator = () => {
 
       return {
         specifications: item.spec,
-        rate: item.rate.toFixed(1),
+        rate: item.rate,
         weight: item.weight,
         i: i.toFixed(1),
-        j:
-          index === 2 || index === 4 || index === 5
-            ? (j + 2).toFixed(1)
-            : j.toFixed(1),
+        j: index === 2 || index === 4 || index === 5 ? j + 2 : j,
       };
     });
 
-    // const ratePP = (640 + 5 + (640 + 5) * 0.08).toFixed(2);
-    // const rateCraft = (780 + 5 + (780 + 5) * 0.08).toFixed(2);
-
-    // const ink = {
-    //   value1: (sides * (ups + 1.5) * readySizeX * 0.0000032 * 1000).toFixed(2),
-    //   value2: ((6.0 / 1000) * 3000 * readySizeX).toFixed(2),
-    // };
-
-    // const le = ((970 / readySizeY) * readySizeX).toFixed(2);
-
-    // const stitch = {
-    //   value1: ((1.772 / 1000) * 970 + 0.5).toFixed(3),
-    //   value2: (0.057 * readySizeX).toFixed(3),
-    // };
-
     setResults({
       table: newResults,
-    //   ratePP,
-    //   rateCraft,
-    //   ink,
-    //   le,
-    //   stitch,
     });
   };
 
@@ -106,7 +88,7 @@ const PPCoastingCalculator = () => {
 
   return (
     <div>
-      <h1>PP Coasting Calculator</h1>
+      <h2>PP Coasting Calculator</h2>
       <div>
         <div>
           <label htmlFor="readySizeX">Ready Size X</label>
@@ -161,10 +143,10 @@ const PPCoastingCalculator = () => {
             results.table.map((row, index) => (
               <tr key={index}>
                 <td>{row.specifications}</td>
-                <td>{row.rate}</td>
+                <td>{row.rate.toFixed(1)}</td>
                 <td>{row.weight}</td>
-                <td>{row.i}</td>
-                <td>{row.j}</td>
+                <td>{Number(row.i).toFixed(2)}</td>
+                <td>{Number(row.j).toFixed(2)}</td>
               </tr>
             ))}
         </tbody>
