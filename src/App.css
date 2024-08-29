@@ -9,9 +9,24 @@ body{
   padding: 30px;
 }
 
-input{
+.inputs input{
   outline: none;
   width: 30px;
+  padding: 5px 8px;
+  margin: 10px;
+}
+
+h3{
+  font-size: 16px;
+}
+
+.additional-inputs div{
+  margin: 0%;
+}
+
+input{
+  outline: none;
+  width: 50px;
   padding: 5px 8px;
   margin: 10px;
 }
