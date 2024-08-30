@@ -24,24 +24,23 @@ const PPCoastingCalculator = () => {
     E23: 205,
     E24: 315,
   });
+  const { A12, B12, E14, D16, E15, E16, E17, E18, E21, H21, E22, E23, E24 } =
+    tableInputs;
+  const { readySizeX, readySizeY, sides, ups } = inputs;
+
+  const F16 =
+    Math.round(
+      readySizeX * (readySizeY + 1.5) * sides * 0.0000032 * 1000 * 100
+    ) / 100;
+  const F14 = E14 + 5 + (E14 + 5) * A12;
+  const H14 = E14 + 25 + (E14 + 25) * A12;
+  const H15 = E15 + 5 + (E15 + 5) * A12;
+  const H16 = (F16 / 1000) * E16 * (D16 / 100);
+  const F18 = (E18 / ups) * sides;
+  const F19 = readySizeX * 0.057;
+  const E19 = (F19 / 1000) * E17 + 0.5;
 
   const calculateResults = () => {
-    const { A12, B12, E14, D16, E15, E16, E17, E18, E21, H21, E22, E23, E24 } =
-      tableInputs;
-    const { readySizeX, readySizeY, sides, ups } = inputs;
-
-    const F16 =
-      Math.round(
-        readySizeX * (readySizeY + 1.5) * sides * 0.0000032 * 1000 * 100
-      ) / 100;
-    const F14 = E14 + 5 + (E14 + 5) * A12;
-    const H14 = E14 + 25 + (E14 + 25) * A12;
-    const H15 = E15 + 5 + (E15 + 5) * A12;
-    const H16 = (F16 / 1000) * E16 * (D16/100);
-    const F18 = (E18 / ups) * sides;
-    const F19 = readySizeX * 0.057;
-    const E19 = (F19 / 1000) * E17 + 0.5;
-
     const calculateJ = (weight, index) => {
       if (index === 0 || index === 1 || index === 2 || index === 5) {
         return (weight / 1000) * F14 + (H16 + F18 + E19);
@@ -174,6 +173,20 @@ const PPCoastingCalculator = () => {
         </tbody>
       </table>
 
+      <div className="input-group">
+        <input
+          type="number"
+          name="A12"
+          value={tableInputs.A12}
+          onChange={handleTableInputChange}
+        />
+        <input
+          type="number"
+          name="B12"
+          value={tableInputs.B12}
+          onChange={handleTableInputChange}
+        />
+      </div>
       <div className="additional-inputs">
         <div className="input-group">
           <h3>Rate PP</h3>
@@ -183,6 +196,24 @@ const PPCoastingCalculator = () => {
               type="number"
               name="E14"
               value={tableInputs.E14}
+              onChange={handleTableInputChange}
+            />
+          </label>
+          <label>
+            F14:{" "}
+            <input
+              type="number"
+              name="F14"
+              value={F14}
+              onChange={handleTableInputChange}
+            />
+          </label>
+          <label>
+            H14:{" "}
+            <input
+              type="number"
+              name="H14"
+              value={H14}
               onChange={handleTableInputChange}
             />
           </label>
@@ -198,9 +229,29 @@ const PPCoastingCalculator = () => {
               onChange={handleTableInputChange}
             />
           </label>
+          <label>
+            H15:{" "}
+            <input
+              type="number"
+              name="H15"
+              value={H15}
+              onChange={handleTableInputChange}
+            />
+          </label>
         </div>
         <div className="input-group">
           <h3>Ink</h3>
+          <label>
+            D16(percentage):{" "}
+            <input
+              type="number"
+              max={100}
+              min={0}
+              name="D16"
+              value={tableInputs.D16}
+              onChange={handleTableInputChange}
+            />
+          </label>
           <label>
             E16:{" "}
             <input
@@ -211,13 +262,20 @@ const PPCoastingCalculator = () => {
             />
           </label>
           <label>
-            D16(percentage):{" "}
+            F16:{" "}
             <input
               type="number"
-              max={100}
-              min={0}
-              name="D16"
-              value={tableInputs.D16}
+              name="F16"
+              value={F16}
+              onChange={handleTableInputChange}
+            />
+          </label>
+          <label>
+            H16:{" "}
+            <input
+              type="number"
+              name="H16"
+              value={H16}
               onChange={handleTableInputChange}
             />
           </label>
@@ -245,9 +303,39 @@ const PPCoastingCalculator = () => {
               onChange={handleTableInputChange}
             />
           </label>
+          <label>
+            F18:{" "}
+            <input
+              type="number"
+              name="F18"
+              value={F18}
+              onChange={handleTableInputChange}
+            />
+          </label>
         </div>
         <div className="input-group">
-          <h3>PFN</h3>
+          <h3>Sttich</h3>
+          <label>
+            E19:{" "}
+            <input
+              type="number"
+              name="E19"
+              value={Number(E19).toFixed(2)}
+              onChange={handleTableInputChange}
+            />
+          </label>
+          <label>
+            F19:{" "}
+            <input
+              type="number"
+              name="F19"
+              value={F19}
+              onChange={handleTableInputChange}
+            />
+          </label>
+        </div>
+        <div className="input-group">
+          <h3>PP N</h3>
           <label>
             E21:{" "}
             <input
@@ -268,7 +356,7 @@ const PPCoastingCalculator = () => {
           </label>
         </div>
         <div className="input-group">
-          <h3>PPH</h3>
+          <h3>PP H</h3>
           <label>
             E22:{" "}
             <input
@@ -299,27 +387,6 @@ const PPCoastingCalculator = () => {
               type="number"
               name="E24"
               value={tableInputs.E24}
-              onChange={handleTableInputChange}
-            />
-          </label>
-        </div>
-        <div className="input-group">
-          <h3>Additional</h3>
-          <label>
-            A12:{" "}
-            <input
-              type="number"
-              name="A12"
-              value={tableInputs.A12}
-              onChange={handleTableInputChange}
-            />
-          </label>
-          <label>
-            B12:{" "}
-            <input
-              type="number"
-              name="B12"
-              value={tableInputs.B12}
               onChange={handleTableInputChange}
             />
           </label>

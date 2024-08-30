@@ -24,6 +24,13 @@ h3{
   margin: 0%;
 }
 
+.input-group{
+  display: flex;
+  align-items: center;
+}
+.input-group label{
+  font-size: 0px;
+}
 input{
   outline: none;
   width: 50px;
