@@ -10,8 +10,8 @@ const PPCoastingCalculator = () => {
   const [results, setResults] = useState({});
 
   const [tableInputs, setTableInputs] = useState({
-    A12: 0.02,
-    B12: 0.08,
+    A12: 2,
+    B12: 8,
     E14: 640,
     D16: 100,
     E15: 780,
@@ -32,9 +32,9 @@ const PPCoastingCalculator = () => {
     Math.round(
       readySizeX * (readySizeY + 1.5) * sides * 0.0000032 * 1000 * 100
     ) / 100;
-  const F14 = E14 + 5 + (E14 + 5) * A12;
-  const H14 = E14 + 25 + (E14 + 25) * A12;
-  const H15 = E15 + 5 + (E15 + 5) * A12;
+  const F14 = E14 + 5 + (E14 + 5) * (A12 / 100);
+  const H14 = E14 + 25 + (E14 + 25) * (A12 / 100);
+  const H15 = E15 + 5 + (E15 + 5) * (A12 / 100);
   const H16 = (F16 / 1000) * E16 * (D16 / 100);
   const F18 = (E18 / ups) * sides;
   const F19 = readySizeX * 0.057;
@@ -51,7 +51,7 @@ const PPCoastingCalculator = () => {
       }
     };
 
-    const calculateI = (j) => j * B12;
+    const calculateI = (j) => j * (B12 / 100);
 
     const specifications = [
       { spec: "18,20,22,23,25,27" },
