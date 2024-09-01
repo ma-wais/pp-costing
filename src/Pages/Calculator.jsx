@@ -28,8 +28,7 @@ const PPCoastingCalculator = () => {
     tableInputs;
   const { readySizeX, readySizeY, sides, ups } = inputs;
 
-  const F16 =
-      readySizeX * (readySizeY + 1.5) * sides * 0.0000032 * 1000 
+  const F16 = readySizeX * (readySizeY + 1.5) * sides * 0.0000032 * 1000;
   const F14 = E14 + 5 + (E14 + 5) * (A12 / 100);
   const H14 = E14 + 25 + (E14 + 25) * (A12 / 100);
   const H15 = E15 + 5 + (E15 + 5) * (A12 / 100);
@@ -172,20 +171,38 @@ const PPCoastingCalculator = () => {
       </table>
 
       <div className="input-group">
-        <b>W</b>
-        <input
-          type="number"
-          name="A12"
-          value={tableInputs.A12}
-          onChange={handleTableInputChange}
-        />
-        <b>P</b>
-        <input
-          type="number"
-          name="B12"
-          value={tableInputs.B12}
-          onChange={handleTableInputChange}
-        />
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            marginTop: "10px",
+          }}
+        >
+          <b>W</b>
+          <input
+            type="number"
+            name="A12"
+            value={tableInputs.A12}
+            onChange={handleTableInputChange}
+          />
+        </div>
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            marginTop: "10px",
+          }}
+        >
+          <b>P</b>
+          <input
+            type="number"
+            name="B12"
+            value={tableInputs.B12}
+            onChange={handleTableInputChange}
+          />
+        </div>
       </div>
       <div className="additional-inputs">
         <div className="input-group">
