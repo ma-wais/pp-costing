@@ -153,8 +153,8 @@ const PPCoastingCalculator = () => {
             <th>Specifications</th>
             <th>Rate</th>
             <th>Weight</th>
-            <th>I</th>
-            <th>J</th>
+            <th>P</th>
+            <th>C</th>
           </tr>
         </thead>
         <tbody>
@@ -172,12 +172,14 @@ const PPCoastingCalculator = () => {
       </table>
 
       <div className="input-group">
+        <b>W</b>
         <input
           type="number"
           name="A12"
           value={tableInputs.A12}
           onChange={handleTableInputChange}
         />
+        <b>P</b>
         <input
           type="number"
           name="B12"
