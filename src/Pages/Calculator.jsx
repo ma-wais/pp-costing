@@ -29,9 +29,7 @@ const PPCoastingCalculator = () => {
   const { readySizeX, readySizeY, sides, ups } = inputs;
 
   const F16 =
-    Math.round(
-      readySizeX * (readySizeY + 1.5) * sides * 0.0000032 * 1000 * 100
-    ) / 100;
+      readySizeX * (readySizeY + 1.5) * sides * 0.0000032 * 1000 
   const F14 = E14 + 5 + (E14 + 5) * (A12 / 100);
   const H14 = E14 + 25 + (E14 + 25) * (A12 / 100);
   const H15 = E15 + 5 + (E15 + 5) * (A12 / 100);
@@ -266,7 +264,7 @@ const PPCoastingCalculator = () => {
             <input
               type="number"
               name="F16"
-              value={F16}
+              value={Number(F16).toFixed(2)}
               onChange={handleTableInputChange}
             />
           </label>
